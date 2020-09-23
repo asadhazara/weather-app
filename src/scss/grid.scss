@@ -1,0 +1,65 @@
+.container {
+  width: 100%;
+  padding: map-get($space, 6);
+  margin: 0 auto;
+  max-width: map-get($breakpoints, xl);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: - map-get($space, 4);
+  
+  > .col {
+    padding: map-get($space, 4);
+  }
+
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+
+  &--jutify-center {
+    justify-content: center;
+  }
+}
+
+.col {
+  position: relative;
+  width: 100%;
+}
+
+@each $breakpoint-key, $breakpoint-value in $breakpoints {
+  $min-breakpoint: if($breakpoint-value != 0, $breakpoint-value, null);
+  $prefix: if($min-breakpoint == null, '', '#{$breakpoint-key}\\:');
+
+  @include media-up($breakpoint-key, $min-breakpoint) {
+    .#{$prefix}col--grow {
+      max-width: 100%;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+
+    .#{$prefix}col--auto {
+      width: auto;
+      max-width: 100%;
+      flex: 0 0 auto;
+    }
+
+    @for $i from 1 through $grid-columns {
+      .#{$prefix}col--#{$i} {
+        $num: $i / $grid-columns;
+        flex: 0 0 percentage($num);
+        max-width: percentage($num);
+      }
+    }
+
+    @for $i from 0 through ($grid-columns - 1) {
+      @if not($prefix == '' and $i == 0) {
+        .#{$prefix}offset--#{$i} {
+          $num: $i / $grid-columns;
+          margin-left: if($num == 0, 0, percentage($num));
+        }
+      }
+    }
+  }
+}
