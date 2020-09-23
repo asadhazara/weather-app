@@ -1,0 +1,27 @@
+<section class="overflow-auto">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="col col--auto">
+    
+        <div class="row flex-no-wrap" *ngIf="weather$ | async as weather">
+    
+          <div class="col col--auto" *ngFor="let location of weather.locations; let index = index">
+            {{ location.city }} {{ location.country }} 
+            {{location.currentForecast.temp}} {{location.currentForecast.tempMin}} {{location.currentForecast.tempMax}}
+            <img src="{{ getWeatherIconUrl(location.currentForecast.icon) }}" />
+            <button (click)="removeLocation(index)">Remove</button>
+            <button (click)="onToggleDateOrder()">toggle</button>
+            <div *ngFor="let date of getOrderedWeekDate(location.weekForecast)">
+              <div *ngFor="let day of location.weekForecast[date]">
+                <p>{{ day.date.getDate() }}</p>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
