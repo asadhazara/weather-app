@@ -1,0 +1,41 @@
+@import 'src/scss/variables';
+
+* {
+  border: 0px solid transparent;
+}
+
+.table {
+  width: 100%;
+  display: inline-block;
+  overflow-x: auto;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+  border-radius: .5rem;
+}
+
+table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+td,
+th {
+  text-align: left;
+  padding: map-get($space, 4) map-get($space, 6);
+  white-space: nowrap;
+}
+
+thead {
+  background: #f9fafb;
+}
+
+tbody {
+  > tr {
+    border-top-width: 1px;
+    border-top-color: #e5e7eb;
+  }
+}

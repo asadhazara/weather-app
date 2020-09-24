@@ -8,10 +8,6 @@
   scroll-behavior: smooth;
 }
 
-*:focus {
-  @apply outline-none;
-}
-
 * {
   font: inherit;
   margin: 0;
@@ -19,6 +15,9 @@
   border: 0;
   box-sizing: border-box;
   background: none;
+  border-spacing: 0;
+  border-collapse: inherit;
+  vertical-align: inherit;
 }
 
 html {

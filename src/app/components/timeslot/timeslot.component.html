@@ -1,0 +1,11 @@
+<div class="timeslot" *ngIf="timeslot">
+  <small>
+    {{ getHour(timeslot.date) }}
+  </small>
+  <img width="24" height="24" src="{{ getWeatherIconUrl(timeslot.icon) }}" alt="Time: {{ getHour(timeslot.date) }}" />
+  <div>
+    <small>
+      {{ getRoundTemp(timeslot.temp) }}°
+    </small>
+  </div>
+</div>

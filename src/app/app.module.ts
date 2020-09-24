@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherEffects } from './effects/weather.effects';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { DayComponent } from './components/day/day.component';
+import { TimeslotComponent } from './components/timeslot/timeslot.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     SearchComponent,
     ResultComponent,
     SearchBarComponent,
+    DayComponent,
+    TimeslotComponent,
   ],
   imports: [
     BrowserModule,

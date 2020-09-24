@@ -8,6 +8,7 @@ const weatherReducer = createReducer<Weather>(
     isLoading: false,
     error: null,
     locations: [],
+    dateOrder: 'ASC',
   },
   on(weatherActions.setSearching, (state) => ({
     ...state,
@@ -33,7 +34,7 @@ const weatherReducer = createReducer<Weather>(
       isLoading: false,
       locations:
         foundIndex !== -1
-        ? state.locations.map((loc, idx) => foundIndex === foundIndex ? location : loc)
+        ? state.locations.map((loc, idx) => foundIndex === idx ? location : loc)
         : [...state.locations, location]
     };
   }),
@@ -42,6 +43,10 @@ const weatherReducer = createReducer<Weather>(
 
     return locations.length > 0 ? { ...state, locations } : {...state, isSearching: true, locations } ;
   }),
+  on(weatherActions.toggleDateOrder, (state) => ({
+    ...state,
+    dateOrder: state.dateOrder === 'ASC' ? 'DESC' : 'ASC',
+  })),
 );
 
 export const reducer = (state: Weather | undefined, action: Action) => weatherReducer(state, action);

@@ -1,27 +1,52 @@
-<section class="overflow-auto">
-  <div class="container">
-    <div class="row justify-center">
-      <div class="col col--auto">
-    
-        <div class="row flex-no-wrap" *ngIf="weather$ | async as weather">
-    
-          <div class="col col--auto" *ngFor="let location of weather.locations; let index = index">
-            {{ location.city }} {{ location.country }} 
-            {{location.currentForecast.temp}} {{location.currentForecast.tempMin}} {{location.currentForecast.tempMax}}
-            <img src="{{ getWeatherIconUrl(location.currentForecast.icon) }}" />
-            <button (click)="removeLocation(index)">Remove</button>
-            <button (click)="onToggleDateOrder()">toggle</button>
-            <div *ngFor="let date of getOrderedWeekDate(location.weekForecast)">
-              <div *ngFor="let day of location.weekForecast[date]">
-                <p>{{ day.date.getDate() }}</p>
-              </div>
-            </div>
+<section *ngIf="weather$ | async as weather">
+  <p class="text-center" *ngIf="weather.locations.length > 1">
+    <span class="bullet"></span> — indicates warmest location
+  </p>
+  <ng-template [ngIf]="weather.locations.length > 0" [ngIfElse]="noLocations">
+    <div class="container">
+      <div class="row row--gutterless justify-center">
+        <div class="col col--auto">
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th *ngFor="let location of weather.locations; let index = index">
+                    <div class="row">
+                      <div class="col col--grow">
+                        <p>
+                          {{ location.city }} — {{  location.country}}
+                        </p>
+                      </div>
+                      <div class="col col--auto">
+                        <button (click)="removeLocation(index)">
+                          <small>remove</small>
+                        </button>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td *ngFor="let location of weather.locations; let index = index">
+                    <app-day [isCurrent]="true" [isWarmer]="(warmerLocationIndexCurrent$ | async) === index && weather.locations.length > 1" [timeslots]="[location.currentForecast]"></app-day>
+                  </td>
+                </tr>
+                <tr *ngFor="let date of uniqueDates$ | async">
+                  <td *ngFor="let location of weather.locations;let index = index">
+                    <app-day [isWarmer]="(warmerLocationIndexWeek$ | async)![date] === index && weather.locations.length > 1" [timeslots]="location.weekForecast[date]"></app-day>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-    
         </div>
-        
       </div>
     </div>
-  </div>
+  </ng-template>
+  <ng-template #noLocations>
+    <p class="text-center">Type a location to get the forecast.</p>
+  </ng-template>
 </section>
+
 

@@ -14,12 +14,36 @@
     padding: map-get($space, 4);
   }
 
+  &--tight {
+    margin: - map-get($space, 2);
+
+    > .col {
+      padding: map-get($space, 2);
+    }
+  }
+
+  &--tighter {
+    margin: - map-get($space, 1);
+
+    > .col {
+      padding: map-get($space, 1);
+    }
+  }
+
   &--nowrap {
     flex-wrap: nowrap;
   }
 
   &--jutify-center {
     justify-content: center;
+  }
+
+  &--gutterless {
+    margin: 0;
+
+    > .col {
+      padding: 0;
+    }
   }
 }
 

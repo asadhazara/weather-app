@@ -1,10 +1,12 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { keys } from 'ramda';
-import { Observable } from 'rxjs';
-import { RemoveLocation } from 'src/app/actions/weather.actions';
+import { keys, map as mapR, flatten } from 'ramda';
+import { combineLatest, Observable } from 'rxjs';
+import { map, withLatestFrom } from 'rxjs/operators';
+import { RemoveLocation, toggleDateOrder } from 'src/app/actions/weather.actions';
 import { AppState } from 'src/app/app.state';
+import { Forecast } from 'src/app/models/forecast.model';
 import { Location } from 'src/app/models/location.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -15,7 +17,33 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class ResultComponent {
   weather$ = this.store.select('weather');
-  dateOrder: 'DESC' | 'ASC' = 'ASC';
+
+  locations$ = this.weather$.pipe(map(weather => weather.locations));
+
+  uniqueDates$ = this.weather$.pipe(map(weather =>
+    flatten(weather.locations.map(loc => keys(loc.weekForecast)))
+    .filter((item, index, arr) => arr.findIndex((i) => i === item) === index)
+    .sort((a, b) => weather.dateOrder === 'ASC' ? a - b : b - a),
+  ));
+
+  warmerLocationIndexCurrent$ = this.weather$.pipe(map(weather => weather.locations.findIndex(
+    loc => Math.max(...weather.locations.map(l => l.currentForecast.temp)) === loc.currentForecast.temp
+  )));
+
+  averageTemps$ = this.locations$.pipe(
+    map(locations => locations.map(
+      location =>  Object.assign({}, ...keys(location.weekForecast).map(date => ({
+        [date]: location.weekForecast[date].reduce((a, b) => a + b.temp, 0) / location.weekForecast[date].length
+      }))) as Record<number, number>
+    ))
+  );
+
+  warmerLocationIndexWeek$ = this.uniqueDates$.pipe(
+    withLatestFrom(this.averageTemps$),
+    map(([dates, averageTemps]) =>  Object.assign({}, ...dates.map(date => ({
+      [date]: averageTemps.findIndex(temp => Math.max(...averageTemps.map(t => t[date])) === temp[date])
+    }))) as Record<number, number>)
+  );
 
   constructor(private store: Store<AppState>, private weatherService: WeatherService) {}
 
@@ -27,11 +55,7 @@ export class ResultComponent {
     this.store.dispatch(RemoveLocation({ index }));
   }
 
-  onToggleDateOrder(): void {
-    this.dateOrder = this.dateOrder === 'ASC' ? 'DESC' : 'ASC';
-  }
-
-  getOrderedWeekDate(forecast: Location['weekForecast']): number[] {
-    return keys(forecast).sort((a, b) => this.dateOrder === 'ASC' ? a - b : b - a);
+  toggleDateOrder(): void {
+    this.store.dispatch(toggleDateOrder());
   }
 }

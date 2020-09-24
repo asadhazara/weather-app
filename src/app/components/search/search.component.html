@@ -1,13 +1,17 @@
 <div class="container">
-  <ng-template [ngIf]="isSearching$ | async" [ngIfElse]="isNotSearching">
-    <app-search-bar (search)="onSearch($event)"></app-search-bar>
-  </ng-template>
-  <ng-template #isNotSearching>
-      <ng-template [ngIf]="maxLocationsReached$ | async" [ngIfElse]="canAddLocation">
-        To compare locations, you need to remove a location first.
+  <div class="row justify-center">
+    <div class="col col--auto">
+      <ng-template [ngIf]="isSearching$ | async" [ngIfElse]="isNotSearching">
+        <app-search-bar (search)="onSearch($event)"></app-search-bar>
       </ng-template>
-      <ng-template #canAddLocation>
-        <button (click)="onSetSearching()">Add another location to compare</button>
-      </ng-template>  
-  </ng-template>
+      <ng-template #isNotSearching>
+          <ng-template [ngIf]="maxLocationsReached$ | async" [ngIfElse]="canAddLocation">
+            To add a location, remove a location first.
+          </ng-template>
+          <ng-template #canAddLocation>
+            <button (click)="onSetSearching()">Add another location to compare</button>
+          </ng-template>  
+      </ng-template>
+    </div>
+  </div>
 </div>

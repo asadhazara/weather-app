@@ -1,0 +1,23 @@
+<div *ngIf="timeslots">
+  <div class="row row--tight items-center">
+    <div class="col col--auto">
+      <p class="fw-semibold">
+        {{ isCurrent ? 'CURRENT WEATHER' : getFormatedDate(timeslots[0].date) }}
+      </p>
+    </div>
+    <ng-template [ngIf]="isWarmer">
+      <div class="col col--auto flex">
+        <div class="bullet"></div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div>
+  <div class="row row--tighter flex-no-wrap">
+    <div class="col col--auto" *ngFor="let timeslot of timeslots">
+      <app-timeslot [timeslot]="timeslot"></app-timeslot>
+    </div>
+  </div>
+</div>
+
+

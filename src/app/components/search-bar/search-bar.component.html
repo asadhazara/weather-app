@@ -1,5 +1,11 @@
 <form (submit)="onSubmit()">
-  <input #input type="text" [(ngModel)]="city" placeholder="Rotterdam, NL" name="city" />
-  <button type="submit">submit</button>
-  <p *ngIf="error$ | async as error">{{ error?.message }}</p>
+  <div>
+    <input #input type="text" [(ngModel)]="city" placeholder="Rotterdam, NL" name="city" />
+  </div>
+  <div>
+    <button type="submit">submit</button>
+  </div>
+  <div>
+    <p class="error text-center" *ngIf="error$ | async as error">{{ error?.message }}</p>
+  </div>
 </form>

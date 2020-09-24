@@ -13,3 +13,32 @@
 .overflow-auto {
   overflow: auto;
 }
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.whitespace-no-wrap {
+  white-space: nowrap;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.flex {
+  display: flex;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fw-semibold {
+  font-weight: 600;
+}
+
+.text-center {
+  text-align: center;
+}

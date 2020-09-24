@@ -1,0 +1,10 @@
+@import 'src/scss/variables';
+
+.timeslot {
+  display: inline-flex;
+  flex-direction: column;
+  padding: map-get($space, 2);
+  border: 1px solid #eee;
+  align-items: center;
+  border-radius: 0.5em;
+}

@@ -28,7 +28,7 @@ interface RawCurrentForcastData {
 export class WeatherService {
 
   baseUrl = 'http://api.openweathermap.org/data/2.5';
-  apiID = 'aba684555f49dc935f36ad3a15334642';
+  apiID = '3f1da10438d11f7db6066daa4d249dac';
   units = 'metric';
 
   constructor(private http: HttpClient) {}
@@ -70,7 +70,8 @@ export class WeatherService {
 
       const weekGroupedByDate = groupBy((el) => {
         const date = new Date(el.dt * 1000);
-        return `${date.getFullYear()}${date.getMonth()}${date.getDate()}`;
+
+        return `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
       }, week.list);
 
       return ({

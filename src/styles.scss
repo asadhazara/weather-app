@@ -4,3 +4,15 @@
 @import 'scss/reset';
 @import 'scss/grid';
 @import 'scss/utilities';
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.bullet {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: red;
+  border-radius: 999px;
+}
