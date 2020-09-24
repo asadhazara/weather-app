@@ -16,8 +16,8 @@ export class DayComponent {
 
   getWeatherIconUrl = this.weatherService.getWeatherIconUrl;
 
-  getFormatedDate(date: Date): string {
-    const weekday = date.toLocaleString('default', { weekday: 'long' });
+    getFormatedDate(date: Date): string {
+    const weekday = date.toLocaleString('en-gb', { weekday: 'long' });
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
