@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Forecast } from 'src/app/models/forecast.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -14,9 +14,7 @@ export class DayComponent {
 
   constructor(private weatherService: WeatherService) { }
 
-  getWeatherIconUrl(icon: string): string {
-    return this.weatherService.getWeatherIconUrl(icon);
-  }
+  getWeatherIconUrl = this.weatherService.getWeatherIconUrl;
 
   getFormatedDate(date: Date): string {
     const weekday = date.toLocaleString('default', { weekday: 'long' });

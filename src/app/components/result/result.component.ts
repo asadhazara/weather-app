@@ -1,13 +1,10 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { keys, map as mapR, flatten } from 'ramda';
-import { combineLatest, Observable } from 'rxjs';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { RemoveLocation, toggleDateOrder } from 'src/app/actions/weather.actions';
 import { AppState } from 'src/app/app.state';
-import { Forecast } from 'src/app/models/forecast.model';
-import { Location } from 'src/app/models/location.model';
+
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -47,9 +44,7 @@ export class ResultComponent {
 
   constructor(private store: Store<AppState>, private weatherService: WeatherService) {}
 
-  getWeatherIconUrl(icon: string): string {
-    return this.weatherService.getWeatherIconUrl(icon);
-  }
+  getWeatherIconUrl = this.weatherService.getWeatherIconUrl;
 
   removeLocation(index: number): void {
     this.store.dispatch(RemoveLocation({ index }));

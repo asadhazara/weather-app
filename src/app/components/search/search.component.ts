@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, tap } from 'rxjs/operators';
-import { AddLocation, setSearching, startFetching } from 'src/app/actions/weather.actions';
+import { map } from 'rxjs/operators';
+import { setSearching, startFetching } from 'src/app/actions/weather.actions';
 import { AppState } from 'src/app/app.state';
-import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   weather$ = this.store.select('weather');
 
   isSearching$ = this.weather$.pipe(map(weather => weather.isSearching));
@@ -27,8 +26,5 @@ export class SearchComponent implements OnInit {
     if (city !== '') {
       this.store.dispatch(startFetching({ city }));
     }
-  }
-
-  ngOnInit(): void {
   }
 }
