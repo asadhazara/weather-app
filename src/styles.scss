@@ -16,3 +16,10 @@ body {
   background: red;
   border-radius: 999px;
 }
+
+button {
+  background: #eee;
+  border-radius: 0;
+  padding: map-get($space, 2);
+  cursor: pointer;
+}

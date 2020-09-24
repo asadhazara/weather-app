@@ -42,3 +42,7 @@
 .text-center {
   text-align: center;
 }
+
+.mt-2 {
+  margin-top  : map-get($space, 2);
+}

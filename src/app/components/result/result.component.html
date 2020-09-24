@@ -1,5 +1,8 @@
 <section *ngIf="weather$ | async as weather">
-  <p class="text-center" *ngIf="weather.locations.length > 1">
+  <div class="text-center" *ngIf="weather.locations.length">
+    <button (click)="toggleDateOrder()">Date Order {{ weather.dateOrder === 'ASC' ? '▲' :  '▼' }}</button>
+  </div>
+  <p class="text-center mt-2" *ngIf="weather.locations.length > 1">
     <span class="bullet"></span> — indicates warmest location
   </p>
   <ng-template [ngIf]="weather.locations.length > 0" [ngIfElse]="noLocations">
