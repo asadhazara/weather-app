@@ -1,6 +1,7 @@
 @import 'src/scss/variables';
 
 input {
+  width: 100%;
   padding: map-get($space, 2) map-get($space, 4);
   background: #eee;
   border-radius: 0;
