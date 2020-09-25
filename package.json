@@ -1,5 +1,6 @@
 {
   "name": "weather-app",
+  "description": "A weather for current weather and a 5 day forecast for a given location.",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

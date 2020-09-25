@@ -1,6 +1,6 @@
 # WeatherApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
+A weather for current weather and a 5 day forecast for a given location.
 
 ## Development server
 
@@ -22,6 +22,7 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+## Docker
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `docker build -t [app-image-name] .` to build a docker image. 
+Run `docker run --name [app-container-name] -d -p 8080:80 [app-image-name]` with the docker image. Navigate to `http://localhost:8080/` to see the app runing.
